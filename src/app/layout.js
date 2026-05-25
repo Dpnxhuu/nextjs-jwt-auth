@@ -14,7 +14,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${outfit.variable} h-full`}>
+    <html lang="en" className={`${outfit.variable} h-full`} data-scroll-behavior="smooth">
       <body className="bg-mesh min-h-full antialiased">{children}</body>
     </html>
   );

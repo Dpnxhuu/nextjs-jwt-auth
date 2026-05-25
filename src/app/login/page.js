@@ -117,23 +117,25 @@ export default function LoginPage() {
               Forgot password?
             </Link>
           </div>
-          <input
-            id="password"
-            name="password"
-            type={showPassword ? "text" : "password"}
-            placeholder="••••••••"
-            className="input-field"
-            autoComplete="current-password"
-            value={formData.password}
-            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-          />
-          <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-12 top-46 -translate-y-1/2 text-zinc-400 hover:text-white"
-          >
-            {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-          </button>
+          <div className="relative">
+            <input
+              id="password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="••••••••"
+              className="input-field pr-10"
+              autoComplete="current-password"
+              value={formData.password}
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white"
+            >
+              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
+          </div>
         </div>
 
         <Button onClick={handleSubmit} disabled={loading} variant="primary" size="lg" className="w-full">
