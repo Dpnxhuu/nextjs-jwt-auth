@@ -28,11 +28,10 @@ export async function POST(request) {
       { expiresIn: "15m" }
     );
 
-    // localhost hardcoded tha — yahi main bug tha
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
     const resetLink = `${baseUrl}/forgot-password/reset?token=${token}`;
 
-    let transporter = nodemailer.createTransport({
+    const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         user: process.env.EMAIL_USER,
@@ -40,22 +39,20 @@ export async function POST(request) {
       },
     });
 
-    try {
-      await transporter.sendMail({
-        from: `"Lumina" <${process.env.EMAIL_USER}>`,
-        to: email,
-        subject: "Reset your password",
-        html: `
-          <h2>Reset your password</h2>
-          <p>Click the link below to reset your password:</p>
-          <a href="${resetLink}">Reset Password</a>
-          <p>This link will expire in 15 minutes.</p>
-        `,
-      });
-    } catch (err) {
-      return NextResponse.json({ message: "Email send failed" }, { status: 500 });
-    }
+    // await hata diya — background mein chalegi, timeout nahi aayega
+    transporter.sendMail({
+      from: `"Lumina" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: "Reset your password",
+      html: `
+        <h2>Reset your password</h2>
+        <p>Click the link below to reset your password:</p>
+        <a href="${resetLink}">Reset Password</a>
+        <p>This link will expire in 15 minutes.</p>
+      `,
+    }).catch(console.error);
 
+    // email ka wait nahi — turant response
     return NextResponse.json({ message: "Reset email sent!" }, { status: 200 });
 
   } catch (err) {
