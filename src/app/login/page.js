@@ -8,10 +8,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 
-// export const metadata = {
-//   title: "Login — Lumina",
-// };
-
 export default function LoginPage() {
 
   const [loading, setLoading] = useState(false);
