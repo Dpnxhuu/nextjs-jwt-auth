@@ -53,7 +53,7 @@ const handleDelete = async () => {
         <div className="flex items-center gap-3 sm:gap-4">
           <div className="flex items-center gap-3">
             <div
-              className="h-10 w-10 rounded-full bg-gradient-to-br from-violet-500/40 to-cyan-500/40 ring-2 ring-white/10"
+              className="hidden sm:block h-10 w-10 rounded-full bg-linear-to-br from-violet-500/40 to-cyan-500/40 ring-2 ring-white/10"
               aria-hidden
             />
             <div className="hidden sm:block">
