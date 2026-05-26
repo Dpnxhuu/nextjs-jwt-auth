@@ -1,25 +1,45 @@
 "use client"
+import { useState } from "react";
 import { Button } from "../ui/Button";
 import { useRouter } from "next/navigation";
+import Loader from "../ui/Loader";
 
-export function HomeNavbar({ user }) {
+export function HomeNavbar({ user, setLogoutLoading }) {
   const router = useRouter();
 
   const handleLogout = async () => {
+  try {
+    setLogoutLoading(true)
     await fetch("/api/auth/logout", { method: "POST" })
     router.replace("/login")
-  };
-
-  const handleDelete = async () => {
-    const confirm = window.confirm("Are you sure you want to delete your account?")
-    if (!confirm) return
-  
-    await fetch("/api/auth/delete", { method: "DELETE" })
-    router.replace("/login")
+  } catch (error) {
+    console.log(error.message)
+    setLogoutLoading(false)
   }
+}
+
+const handleDelete = async () => {
+  const confirmed = window.confirm("Are you sure you want to delete your account?")
+  if (!confirmed) return
+
+  setLogoutLoading(true)
+  try {
+    const res = await fetch("/api/auth/delete", { method: "DELETE" })
+    if (!res.ok) {
+      const data = await res.json()
+      alert(data.message)
+      return
+    }
+    router.replace("/login")
+  } catch (error) {
+    console.log(error.message)
+    setLogoutLoading(false)
+  }
+}
 
   const displayName = user?.name || "User";
   const displayEmail = user?.email || "";
+
   return (
     <header className="sticky top-0 z-50 border-b border-white/5 bg-[#06060b]/80 backdrop-blur-xl">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">

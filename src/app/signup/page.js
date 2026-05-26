@@ -1,29 +1,9 @@
-"use client"
 import Link from "next/link";
 import { AuthCard } from "../../components/auth/AuthCard";
 import { GoogleAuthButton } from "../../components/auth/GoogleAuthButton";
 import { Button } from "../../components/ui/Button";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-
-// export const metadata = {
-//   title: "Sign Up — Lumina",
-// };
 
 export default function SignupPage() {
-
-  // const router = useRouter();
-
-  // useEffect(() => {
-  //   const checkAuth = async () => {
-  //     const res = await fetch("/api/auth/me")
-  //     if (res.ok) {
-  //       router.replace("/home")
-  //     }
-  //   }
-  //   checkAuth()
-  // }, [])
-
   return (
     <AuthCard
       title="Create your account"

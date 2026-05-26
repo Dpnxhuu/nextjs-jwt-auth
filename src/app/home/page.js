@@ -1,24 +1,46 @@
-"use client"
+"use client";
 import { HomeNavbar } from "../../components/layout/HomeNavbar";
 import { Dashboard } from "../../components/home/Dashboard";
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import Loader from "@/components/ui/Loader";
 
 export default function HomePage() {
-  const [user, setUser] = useState(null)
-  const router = useRouter()
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [logoutLoading, setLogoutLoading] = useState(false)
 
   useEffect(() => {
-    fetch("/api/auth/me")
-      .then(res => res.json())
-      .then(data => setUser(data))
-  }, [])
+    async function fetchAuth() {
+      try {
+        const res = await fetch("/api/auth/me");
+        const data = await res.json();
 
-  const firstName = user?.name?.split(" ")[0] || "there"
+        if (!res.ok) {
+          setError(data.message || "Something went wrong");
+          return;
+        }
+
+        setUser(data);
+      } catch (error) {
+        setError("No internet connection");
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchAuth();
+  }, []);
+
+
+
+  const firstName = user?.name?.split(" ")[0] || "there";
+  
+  if(loading) return <Loader/>
+  if(logoutLoading) return <Loader/>
 
   return (
     <div className="min-h-screen">
-      <HomeNavbar user={user} />
+      <HomeNavbar user={user} setLogoutLoading={setLogoutLoading} />
       <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="mb-10">
           <p className="text-sm font-medium text-violet-400">Dashboard</p>
@@ -32,5 +54,5 @@ export default function HomePage() {
         <Dashboard />
       </main>
     </div>
-  )
+  );
 }

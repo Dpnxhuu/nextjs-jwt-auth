@@ -6,10 +6,7 @@ import { AuthDivider } from "../../../components/auth/AuthDivider";
 import { GoogleAuthButton } from "../../../components/auth/GoogleAuthButton";
 import { Button } from "../../../components/ui/Button";
 import { useRouter } from "next/navigation";
-
-// export const metadata = {
-//   title: "Sign Up — Lumina",
-// };
+import Loader from "@/components/ui/Loader";
 
 export default function SignupEmailPage() {
 
@@ -59,17 +56,6 @@ export default function SignupEmailPage() {
       setLoading(false);
     }
   }
-
-  // useEffect(() => {
-  //   const checkAuth = async () => {
-  //     const res = await fetch("/api/auth/me")
-  //     if (res.ok) {
-  //       router.replace("/home")
-  //     }
-  //   }
-  //   checkAuth()
-  // }, [])
-  
 
   return (
     <AuthCard

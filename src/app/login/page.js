@@ -4,7 +4,7 @@ import { AuthCard } from "../../components/auth/AuthCard";
 import { AuthDivider } from "../../components/auth/AuthDivider";
 import { GoogleAuthButton } from "../../components/auth/GoogleAuthButton";
 import { Button } from "../../components/ui/Button";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 
@@ -36,7 +36,6 @@ export default function LoginPage() {
       })
 
       const data = await res.json()
-      console.log(data)
 
       if (res.ok) {
         router.replace('/home')
@@ -52,15 +51,6 @@ export default function LoginPage() {
     }
   }
 
-  // useEffect(() => {
-  //   const checkAuth = async () => {
-  //     const res = await fetch("/api/auth/me")
-  //     if (res.ok) {
-  //       router.replace("/home")
-  //     }
-  //   }
-  //   checkAuth()
-  // }, [])
 
   return (
     <AuthCard
