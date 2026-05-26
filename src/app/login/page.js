@@ -56,15 +56,15 @@ export default function LoginPage() {
     }
   }
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const res = await fetch("/api/auth/me")
-      if (res.ok) {
-        router.replace("/home")
-      }
-    }
-    checkAuth()
-  }, [])
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     const res = await fetch("/api/auth/me")
+  //     if (res.ok) {
+  //       router.replace("/home")
+  //     }
+  //   }
+  //   checkAuth()
+  // }, [])
 
   return (
     <AuthCard

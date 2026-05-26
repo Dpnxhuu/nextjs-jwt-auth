@@ -2,38 +2,19 @@
 import { HomeNavbar } from "../../components/layout/HomeNavbar";
 import { Dashboard } from "../../components/home/Dashboard";
 import { useState, useEffect } from "react"
-import PageLoader from "@/components/pageloader/PageLoader";
 import { useRouter } from "next/navigation";
 
-// export const metadata = {
-//   title: "Dashboard — Lumina",
-// };
-
 export default function HomePage() {
-
-  const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null)
-
-  const router = useRouter();
-
+  const router = useRouter()
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const res = await fetch("/api/auth/me")
-      if (!res.ok) {
-        router.replace("/login")
-        return
-      }
-      const data = await res.json()
-      setUser(data)
-      setLoading(false)
-    }
-    checkAuth()
-  }, [router]);
+    fetch("/api/auth/me")
+      .then(res => res.json())
+      .then(data => setUser(data))
+  }, [])
 
-  if (loading || !user) return <PageLoader />;
-
-  const firstName = user.name?.split(" ")[0] || "there";
+  const firstName = user?.name?.split(" ")[0] || "there"
 
   return (
     <div className="min-h-screen">
@@ -42,8 +23,7 @@ export default function HomePage() {
         <div className="mb-10">
           <p className="text-sm font-medium text-violet-400">Dashboard</p>
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Welcome back,{" "}
-            <span className="text-gradient">{firstName}</span>
+            Welcome back, <span className="text-gradient">{firstName}</span>
           </h1>
           <p className="mt-2 text-zinc-400">
             Here&apos;s what&apos;s happening with your projects today.
@@ -52,5 +32,5 @@ export default function HomePage() {
         <Dashboard />
       </main>
     </div>
-  );
+  )
 }

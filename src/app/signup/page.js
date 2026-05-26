@@ -12,17 +12,17 @@ import { useRouter } from "next/navigation";
 
 export default function SignupPage() {
 
-  const router = useRouter();
+  // const router = useRouter();
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const res = await fetch("/api/auth/me")
-      if (res.ok) {
-        router.replace("/home")
-      }
-    }
-    checkAuth()
-  }, [])
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     const res = await fetch("/api/auth/me")
+  //     if (res.ok) {
+  //       router.replace("/home")
+  //     }
+  //   }
+  //   checkAuth()
+  // }, [])
 
   return (
     <AuthCard
