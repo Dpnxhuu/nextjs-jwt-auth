@@ -3,14 +3,12 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { AuthCard } from "../../components/auth/AuthCard";
 import { Button } from "../../components/ui/Button";
-import { useRouter } from "next/navigation";
 
 export default function ForgotPasswordForm() {
 
   const [email, setEmail] = useState("")
   const [loading, setLoading] = useState(false)
   const [sent, setSent] = useState(false)
-  const router = useRouter()
 
   const handleSubmit = async () => {
     if (!email) {
@@ -40,15 +38,15 @@ export default function ForgotPasswordForm() {
     }
   }
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const res = await fetch("/api/auth/me")
-      if (res.ok) {
-        router.replace("/home")
-      }
-    }
-    checkAuth()
-  }, [])
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     const res = await fetch("/api/auth/me")
+  //     if (res.ok) {
+  //       router.replace("/home")
+  //     }
+  //   }
+  //   checkAuth()
+  // }, [])
 
   if (sent) {
     return (

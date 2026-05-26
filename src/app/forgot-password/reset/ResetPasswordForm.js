@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { AuthCard } from "../../../components/auth/AuthCard";
 import { Button } from "../../../components/ui/Button";
 
@@ -11,7 +11,7 @@ export default function ResetPasswordForm() {
   const [loading, setLoading] = useState(false)
 
   const searchParams = useSearchParams()
-  const router = useRouter()
+  // const router = useRouter()
   const token = searchParams.get("token")
 
   const handleReset = async () => {
@@ -48,15 +48,15 @@ export default function ResetPasswordForm() {
     }
   }
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const res = await fetch("/api/auth/me")
-      if (res.ok) {
-        router.replace("/home")
-      }
-    }
-    checkAuth()
-  }, [])
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     const res = await fetch("/api/auth/me")
+  //     if (res.ok) {
+  //       router.replace("/home")
+  //     }
+  //   }
+  //   checkAuth()
+  // }, [])
 
   return (
     <AuthCard
