@@ -6,15 +6,14 @@ import jwt from "jsonwebtoken";
 export async function POST(request) {
   const { name, email, password } = await request.json();
 
-  const [existing] = await db.query(
-    "SELECT * FROM users WHERE email = ?",
-    [email]
-  );
+  const [existing] = await db.query("SELECT * FROM users WHERE email = ?", [
+    email,
+  ]);
 
   if (existing.length > 0) {
     return NextResponse.json(
       { message: "Email already exists" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -22,23 +21,23 @@ export async function POST(request) {
 
   const [result] = await db.query(
     "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
-    [name, email, hashedPassword]
+    [name, email, hashedPassword],
   );
 
   const token = jwt.sign(
-    { userId: result.insertId, email, name },  // ← name add kiya
+    { userId: result.insertId, email, name },
     process.env.JWT_SECRET,
-    { expiresIn: "7d" }
+    { expiresIn: "7d" },
   );
 
   const response = NextResponse.json(
     { message: "User created successfully" },
-    { status: 201 }
+    { status: 201 },
   );
 
   response.cookies.set("token", token, {
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
     maxAge: 60 * 60 * 24 * 7,
     path: "/",
   });

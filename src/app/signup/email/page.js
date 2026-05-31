@@ -6,7 +6,6 @@ import { AuthDivider } from "../../../components/auth/AuthDivider";
 import { GoogleAuthButton } from "../../../components/auth/GoogleAuthButton";
 import { Button } from "../../../components/ui/Button";
 import { useRouter } from "next/navigation";
-import Loader from "@/components/ui/Loader";
 
 export default function SignupEmailPage() {
 
