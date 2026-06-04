@@ -7,6 +7,7 @@ import { GoogleAuthButton } from "../../../components/auth/GoogleAuthButton";
 import { Button } from "../../../components/ui/Button";
 import { useRouter } from "next/navigation";
 
+
 export default function SignupEmailPage() {
 
   const [loading, setLoading] = useState(false)

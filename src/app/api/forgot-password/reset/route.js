@@ -15,7 +15,7 @@ export async function POST(request) {
     try {
       decoded = jwt.verify(token, process.env.JWT_SECRET);
     } catch (error) {
-      return NextResponse.json({ message: "Link expired ya invalid hai!" }, { status: 401 });
+      return NextResponse.json({ message: "Link expired or invalid!" }, { status: 401 });
     }
 
     if (password.length < 6) {

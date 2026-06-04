@@ -28,7 +28,7 @@ export async function POST(request) {
       { expiresIn: "15m" }
     );
 
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000/";
     const resetLink = `${baseUrl}/forgot-password/reset?token=${token}`;
 
     const transporter = nodemailer.createTransport({

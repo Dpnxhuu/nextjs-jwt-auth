@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { AuthCard } from "../../../components/auth/AuthCard";
 import { Button } from "../../../components/ui/Button";
@@ -47,16 +47,6 @@ export default function ResetPasswordForm() {
       setLoading(false)
     }
   }
-
-  // useEffect(() => {
-  //   const checkAuth = async () => {
-  //     const res = await fetch("/api/auth/me")
-  //     if (res.ok) {
-  //       router.replace("/home")
-  //     }
-  //   }
-  //   checkAuth()
-  // }, [])
 
   return (
     <AuthCard
