@@ -25,13 +25,21 @@ export function middleware(request) {
   }
 
   if (isAuthPage) {
-    if (token) {
-      const homeUrl = request.nextUrl.clone();
-      homeUrl.pathname = "/home";
-      return NextResponse.redirect(homeUrl);
+  // ✅ yeh add karo — reset page pe token check karo
+  if (pathname === "/forgot-password/reset") {
+    const resetToken = request.nextUrl.searchParams.get("token");
+    if (!resetToken) {
+      return NextResponse.redirect(new URL("/forgot-password", request.url));
     }
-    return NextResponse.next();
   }
+
+  if (token) {
+    const homeUrl = request.nextUrl.clone();
+    homeUrl.pathname = "/home";
+    return NextResponse.redirect(homeUrl);
+  }
+  return NextResponse.next();
+}
 
   return NextResponse.next();
 }

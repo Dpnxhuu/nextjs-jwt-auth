@@ -50,7 +50,7 @@ export default function SignupEmailPage() {
       }
 
     } catch (error) {
-      alert("Something went wrong!")
+      alert(error.message)
       console.log(error)
     } finally {
       setLoading(false);

@@ -25,10 +25,15 @@ export async function POST(request) {
     const token = jwt.sign(
       { userId: rows[0].id, email },
       process.env.JWT_SECRET,
-      { expiresIn: "15m" }
+      { expiresIn: "15m" },
     );
 
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000/";
+    await db.query(
+      "UPDATE users SET password_reset_token = ? WHERE email = ?",
+      [token, email],
+    );
+
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
     const resetLink = `${baseUrl}/forgot-password/reset?token=${token}`;
 
     const transporter = nodemailer.createTransport({
@@ -40,22 +45,26 @@ export async function POST(request) {
     });
 
     // await hata diya — background mein chalegi, timeout nahi aayega
-    transporter.sendMail({
-      from: `"Lumina" <${process.env.EMAIL_USER}>`,
-      to: email,
-      subject: "Reset your password",
-      html: `
+    transporter
+      .sendMail({
+        from: `"Lumina" <${process.env.EMAIL_USER}>`,
+        to: email,
+        subject: "Reset your password",
+        html: `
         <h2>Reset your password</h2>
         <p>Click the link below to reset your password:</p>
         <a href="${resetLink}">Reset Password</a>
         <p>This link will expire in 15 minutes.</p>
       `,
-    }).catch(console.error);
+      })
+      .catch(console.error);
 
     // email ka wait nahi — turant response
     return NextResponse.json({ message: "Reset email sent!" }, { status: 200 });
-
   } catch (err) {
-    return NextResponse.json({ message: "Something went wrong" }, { status: 500 });
+    return NextResponse.json(
+      { message: "Something went wrong" },
+      { status: 500 },
+    );
   }
 }

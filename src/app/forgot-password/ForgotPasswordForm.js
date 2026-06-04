@@ -32,21 +32,11 @@ export default function ForgotPasswordForm() {
         alert(data.message)
       }
     } catch (error) {
-      alert("Something went wrong!")
+      alert(error.message)
     } finally {
       setLoading(false)
     }
   }
-
-  // useEffect(() => {
-  //   const checkAuth = async () => {
-  //     const res = await fetch("/api/auth/me")
-  //     if (res.ok) {
-  //       router.replace("/home")
-  //     }
-  //   }
-  //   checkAuth()
-  // }, [])
 
   if (sent) {
     return (

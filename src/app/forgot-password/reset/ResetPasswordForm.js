@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { AuthCard } from "../../../components/auth/AuthCard";
 import { Button } from "../../../components/ui/Button";
+import { useRouter } from "next/navigation";
 
 export default function ResetPasswordForm() {
 
@@ -11,7 +12,7 @@ export default function ResetPasswordForm() {
   const [loading, setLoading] = useState(false)
 
   const searchParams = useSearchParams()
-  // const router = useRouter()
+  const router = useRouter()
   const token = searchParams.get("token")
 
   const handleReset = async () => {
@@ -25,6 +26,10 @@ export default function ResetPasswordForm() {
       return
     }
 
+    if(!token){
+      alert("token is required");
+    }
+
     setLoading(true)
     try {
       const res = await fetch("/api/forgot-password/reset", {
@@ -36,17 +41,18 @@ export default function ResetPasswordForm() {
       const data = await res.json()
 
       if (res.ok) {
-        alert("Password reset successful!")
+        alert(data.message)
         router.replace("/login")
       } else {
         alert(data.message)
       }
     } catch (error) {
-      alert("Something went wrong!")
+      alert(error.message)
     } finally {
       setLoading(false)
     }
   }
+
 
   return (
     <AuthCard
