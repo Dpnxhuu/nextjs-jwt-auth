@@ -31,7 +31,7 @@ export async function DELETE(request) {
 
   response.cookies.set("token", "", {
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
     maxAge: 0,
     path: "/",
   });

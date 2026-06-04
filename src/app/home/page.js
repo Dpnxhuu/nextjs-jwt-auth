@@ -23,7 +23,7 @@ export default function HomePage() {
 
         setUser(data);
       } catch (error) {
-        setError("No internet connection");
+        setError(error.message);
       } finally {
         setLoading(false);
       }

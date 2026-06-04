@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 const AUTH_PAGES = new Set([
+  "/",
   "/login",
   "/signup",
   "/signup/email",
@@ -25,7 +26,6 @@ export function middleware(request) {
   }
 
   if (isAuthPage) {
-  // ✅ yeh add karo — reset page pe token check karo
   if (pathname === "/forgot-password/reset") {
     const resetToken = request.nextUrl.searchParams.get("token");
     if (!resetToken) {
@@ -46,6 +46,7 @@ export function middleware(request) {
 
 export const config = {
   matcher: [
+    "/",
     "/home/:path*",
     "/login",
     "/signup",
