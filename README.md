@@ -10,7 +10,7 @@ A production-ready authentication system built with Next.js, JWT, HttpOnly Cooki
 - ✅ Forgot Password with email reset link
 - ✅ Account deletion
 - ✅ Protected routes
-- ✅ Cloud MySQL (Railway)  
+- ✅ Cloud MySQL (Aiven)  
 
 ## Tech Stack
 
